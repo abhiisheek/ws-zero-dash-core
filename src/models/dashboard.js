@@ -13,4 +13,4 @@ const dashboardSchema = mongoose.Schema({
   updatedOn: { type: Date, default: Date.now, required: true },
 });
 
-export default mongoose.model("Visuals", userSchema);
+export default mongoose.model("Dashboards", dashboardSchema);

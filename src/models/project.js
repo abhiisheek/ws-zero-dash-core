@@ -1,7 +1,7 @@
 import { query } from "express";
 import mongoose from "mongoose";
 
-const ProjectSchema = mongoose.Schema({
+const projectSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -14,4 +14,4 @@ const ProjectSchema = mongoose.Schema({
   updatedOn: { type: Date, default: Date.now, required: true },
 });
 
-export default mongoose.model("Projects", userSchema);
+export default mongoose.model("Projects", projectSchema);

@@ -14,6 +14,7 @@ const visualSchema = mongoose.Schema({
     db: { type: Object },
     restApi: { type: Object },
   },
+  projectId: { type: String, required: true },
 });
 
-export default mongoose.model("Visuals", userSchema);
+export default mongoose.model("Visuals", visualSchema);
