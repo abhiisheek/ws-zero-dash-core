@@ -11,6 +11,7 @@ const dashboardSchema = mongoose.Schema({
   createdOn: { type: Date, default: Date.now, required: true },
   updatedBy: { type: String, required: true },
   updatedOn: { type: Date, default: Date.now, required: true },
+  projectId: { type: String, required: true },
 });
 
 export default mongoose.model("Dashboards", dashboardSchema);
