@@ -24,6 +24,7 @@ const createProject = async (req, res) => {
       public: isPublic,
       authorisationRoles,
       additionalConfig,
+      db: {},
       createdBy: username,
       updatedBy: username,
     });
@@ -43,6 +44,7 @@ const updateProject = async (req, res) => {
   const isPublic = req.body.public;
   const authorisationRoles = req.body.authorisationRoles || [];
   const additionalConfig = req.body.additionalConfig || {};
+  const db = req.body.db || {};
 
   if (!projectId || !description || !isPublic) {
     errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
@@ -60,6 +62,7 @@ const updateProject = async (req, res) => {
         public: isPublic,
         authorisationRoles,
         additionalConfig,
+        db,
         updatedBy: username,
         updatedOn: Date.now(),
       },

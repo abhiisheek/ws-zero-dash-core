@@ -29,7 +29,7 @@ const app = express();
 
 app.use(cors());
 app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(sanitizer(sanitizeConfig));

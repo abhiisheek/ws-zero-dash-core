@@ -8,6 +8,7 @@ const projectSchema = mongoose.Schema({
   public: { type: Boolean, required: true },
   authorisationRoles: { type: Array, required: true },
   additionalConfig: { type: Object },
+  db: { type: Object },
   createdBy: { type: String, required: true },
   createdOn: { type: Date, default: Date.now, required: true },
   updatedBy: { type: String, required: true },
