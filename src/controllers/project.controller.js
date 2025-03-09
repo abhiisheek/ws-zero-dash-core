@@ -9,6 +9,7 @@ const createProject = async (req, res) => {
   const isPublic = req.body.public;
   const authorisationRoles = req.body.authorisationRoles || [];
   const additionalConfig = req.body.additionalConfig || {};
+  const db = req.body.db || {};
 
   if (!name || !description || !isPublic) {
     errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
@@ -24,7 +25,7 @@ const createProject = async (req, res) => {
       public: isPublic,
       authorisationRoles,
       additionalConfig,
-      db: {},
+      db,
       createdBy: username,
       updatedBy: username,
     });
@@ -86,8 +87,24 @@ const getProjects = async (req, res) => {
   }
 };
 
+const getProject = async (req, res) => {
+  const projectId = req.params["projectId"];
+
+  if (!projectId) {
+    errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
+    return;
+  }
+  try {
+    const project = await Project.findOne({ _id: projectId });
+    res.send(project);
+  } catch (err) {
+    errorHandler(res, err, 500);
+  }
+};
+
 export default {
   createProject,
   updateProject,
-  getProjects
+  getProjects,
+  getProject,
 };

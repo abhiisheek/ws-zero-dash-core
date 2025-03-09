@@ -20,6 +20,7 @@ router.put(
   dashboardController.publish
 );
 router.put("/:projectId", projectController.updateProject);
+router.get("/:projectId", projectController.getProject);
 router.get("/all", projectController.getProjects);
 
 export default router;
