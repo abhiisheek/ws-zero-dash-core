@@ -4,6 +4,7 @@ import Visual from "../models/visual.js";
 import { errorHandler } from "../utils/index.js";
 
 const create = async (req, res) => {
+  //#swagger.summary  = 'Creates new visualisation under the given project'
   const projectId = req.params["projectId"];
   const name = req.body.name;
   const config = req.body.config;
@@ -35,6 +36,7 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
+  //#swagger.summary  = 'Updates or modifies the details of a given visualisation'
   const vizId = req.params["vizId"];
   const projectId = req.params["projectId"];
 
@@ -70,6 +72,7 @@ const update = async (req, res) => {
 };
 
 const getVizs = async (req, res) => {
+  //#swagger.summary  = 'List all the visualisations with details under the given project'
   const projectId = req.params["projectId"];
 
   if (!projectId) {
@@ -85,8 +88,27 @@ const getVizs = async (req, res) => {
   }
 };
 
+const getViz = async (req, res) => {
+  //#swagger.summary  = 'Retrieves the details of the given visualisation'
+  const projectId = req.params["projectId"];
+  const vizId = req.params["vizId"];
+
+  if (!projectId || !vizId) {
+    errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
+    return;
+  }
+
+  try {
+    const vizs = await Visual.find({ projectId, _id: vizId });
+    res.send(vizs);
+  } catch (err) {
+    errorHandler(res, err, 500);
+  }
+};
+
 export default {
   create,
   update,
   getVizs,
+  getViz,
 };

@@ -4,6 +4,7 @@ import Dashboard from "../models/dashboard.js";
 import { errorHandler } from "../utils/index.js";
 
 const create = async (req, res) => {
+  //#swagger.summary  = 'Creates new dashboard'
   const projectId = req.params["projectId"];
   const name = req.body.name;
   const config = req.body.config;
@@ -37,6 +38,7 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
+  //#swagger.summary  = 'Updates or modifies the details of the given dashboard'
   const dashboardId = req.params["dashboardId"];
   const projectId = req.params["projectId"];
 
@@ -74,6 +76,7 @@ const update = async (req, res) => {
 };
 
 const publish = async (req, res) => {
+  //#swagger.summary  = 'Publish the given dashboard'
   const dashboardId = req.params["dashboardId"];
   const projectId = req.params["projectId"];
 
@@ -104,7 +107,26 @@ const publish = async (req, res) => {
   }
 };
 
+const getDashboard = async (req, res) => {
+  //#swagger.summary  = 'Retrieves details of the given dashboard'
+  const dashboardId = req.params["dashboardId"];
+  const projectId = req.params["projectId"];
+
+  if (!projectId || !dashboardId) {
+    errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
+    return;
+  }
+
+  try {
+    const dashboards = await Dashboard.find({ projectId, _id: dashboardId });
+    res.send(dashboards);
+  } catch (err) {
+    errorHandler(res, err, 500);
+  }
+};
+
 const getDashboards = async (req, res) => {
+  //#swagger.summary  = 'List of all dashboards under the given project'
   const projectId = req.params["projectId"];
 
   if (!projectId) {
@@ -124,5 +146,6 @@ export default {
   create,
   update,
   getDashboards,
+  getDashboard,
   publish,
 };

@@ -9,6 +9,10 @@ import bodyParser from "body-parser";
 import compression from "compression";
 import xss from "xss-clean";
 import sanitizer from "express-html-sanitizer";
+// import swaggerUI from "swagger-ui-express";
+
+// import swaggerFile from "../swagger_output.json" with { type: "json" };
+
 
 import rateLimiter from "./middleware/rateLimiter.js";
 import logger from "./utils/logger.js";
@@ -17,6 +21,7 @@ import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/user.js";
 import projectsRouter from "./routes/project.js";
 import dbRouter from "./routes/db.js";
+import llmRouter from "./routes/llm.js";
 
 const { json, urlencoded } = bodyParser;
 
@@ -59,6 +64,13 @@ app.use("/", indexRouter);
 app.use("/user", usersRouter);
 app.use("/project", projectsRouter);
 app.use("/db", dbRouter);
+app.use("/llm", llmRouter);
+
+var options = {
+  explorer: true
+};
+
+// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile, options));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -4,6 +4,7 @@ import Project from "../models/project.js";
 import { errorHandler } from "../utils/index.js";
 
 const createProject = async (req, res) => {
+  // #swagger.summary = 'Create new project'
   const name = req.body.name;
   const description = req.body.description;
   const isPublic = req.body.public;
@@ -39,6 +40,8 @@ const createProject = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
+  // #swagger.summary = 'Update or modifies the project details'
+
   const projectId = req.params["projectId"];
 
   const description = req.body.description;
@@ -79,6 +82,7 @@ const updateProject = async (req, res) => {
 };
 
 const getProjects = async (req, res) => {
+  // #swagger.summary = 'List all projects'
   try {
     const projects = await Project.find();
     res.send(projects);
@@ -88,6 +92,7 @@ const getProjects = async (req, res) => {
 };
 
 const getProject = async (req, res) => {
+  //#swagger.summary  = 'Retrieves details of the given project'
   const projectId = req.params["projectId"];
 
   if (!projectId) {

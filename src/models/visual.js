@@ -1,4 +1,3 @@
-import e, { query } from "express";
 import mongoose from "mongoose";
 
 const visualSchema = mongoose.Schema({

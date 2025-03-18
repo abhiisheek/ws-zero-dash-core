@@ -2,6 +2,7 @@ import { errorHandler } from "../utils/index.js";
 import { getConnection, json2csvArray } from "../helpers/db.js";
 
 const executeQuery = async (req, res) => {
+  //#swagger.summary  = 'Execute the given query for results'
   const query = req.body.query;
   if (!query) {
     errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);

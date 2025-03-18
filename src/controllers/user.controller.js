@@ -7,6 +7,7 @@ import { errorHandler } from "../utils/index.js";
 import { getUserDetailsById, isUserPresent } from "../helpers/userProfile.js";
 
 const signup = async (req, res) => {
+  //#swagger.summary  = 'Signup new user with given details'
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
@@ -56,6 +57,7 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  //#swagger.summary  = 'Login with the given credentials'
   const email = req.body.email;
   const password = req.body.password;
 
@@ -90,6 +92,7 @@ const login = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
+  //#swagger.summary  = 'Update password for the given user'
   const newPassword = req.body.newPassword;
   const oldPassword = req.body.oldPassword;
   const authorization = req.get("Authorization");
@@ -131,6 +134,7 @@ const changePassword = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  //#swagger.summary  = 'Retrieve details for the given user'
   const userId = req.params["userId"];
 
   if (!userId) {
@@ -156,6 +160,7 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  //#swagger.summary  = 'Modify or updates details for the given user'
   const userId = req.params["userId"];
 
   const avatarURL = req.body.avatarURL;
