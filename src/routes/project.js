@@ -7,6 +7,7 @@ import dashboardController from "../controllers/dashboard.controller.js";
 const router = express.Router();
 
 router.post("/create", projectController.createProject);
+router.get("/all", projectController.getProjects);
 router.get("/:projectId/viz/all", vizController.getVizs);
 router.post("/:projectId/viz/create", vizController.create);
 router.put("/:projectId/viz/:vizId", vizController.update);
@@ -21,6 +22,5 @@ router.put(
 );
 router.put("/:projectId", projectController.updateProject);
 router.get("/:projectId", projectController.getProject);
-router.get("/all", projectController.getProjects);
 
 export default router;

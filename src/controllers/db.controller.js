@@ -41,4 +41,35 @@ const getAllTables = async (req, res) => {
   }
 };
 
-export default { executeQuery, getAllTables };
+const getTablesMetadata = async (req, res) => {
+  //#swagger.summary  = 'Retrieve metadata for the given tables & database'
+  const database = req.params["database"];
+  const tables = req.body.tables;
+  if (!database || !Array.isArray(tables)) {
+    errorHandler(res, { message: "Bad Request - Payload not matching" }, 400);
+    return;
+  }
+
+  try {
+    const connection = await getConnection();
+    const result = {};
+
+    tables.forEach(async (tableName, index) => {
+      const [metadata] = await connection.query(
+        `SELECT COLUMN_NAME AS "column", DATA_TYPE AS "type" FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_SCHEMA = '${database}' AND Table_NAME = '${tableName}';`
+      );
+
+      result[tableName] = metadata;
+
+      if (index === tables.length - 1) {
+        connection.release();
+        res.send(result);
+      }
+    });
+  } catch (error) {
+    errorHandler(res, error, 500);
+  }
+};
+
+export default { executeQuery, getAllTables, getTablesMetadata };
