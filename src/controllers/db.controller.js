@@ -11,10 +11,10 @@ const executeQuery = async (req, res) => {
 
   try {
     const connection = await getConnection();
-    const [result, metadata] = await connection.query(query);
+    const [result] = await connection.query(query);
     connection.release();
     const csv = json2csvArray(result);
-    res.send({ data: csv, metadata: metadata[0] });
+    res.send(csv);
   } catch (error) {
     errorHandler(res, error, 500);
   }
